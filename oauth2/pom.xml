@@ -11,7 +11,8 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <my.oauth2.version>0.0.1-SNAPSHOT</my.oauth2.version>
+        <!--编译编码-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencyManagement>
         <dependencies>
