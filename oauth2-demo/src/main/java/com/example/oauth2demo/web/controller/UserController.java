@@ -15,6 +15,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    @PostMapping
+    public User createUser(@RequestBody User user){
+        log.info(JSON.toJSONString(user));
+        user.setId("1");
+        return user;
+    }
+
     @GetMapping
     @JsonView(User.UserSimpleView.class)
     public List<User> query(UserQueryCondition userQueryCondition, Pageable pageable){

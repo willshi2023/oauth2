@@ -6,6 +6,7 @@ import lombok.Setter;
 
 @Setter
 public class User {
+    private String id;
     private String username;
     private String password;
     public interface UserSimpleView{};
@@ -19,5 +20,10 @@ public class User {
     @JsonView(UserDetailView.class)
     public String getPassword() {
         return password;
+    }
+
+    @JsonView(UserSimpleView.class)
+    public String getId() {
+        return id;
     }
 }
