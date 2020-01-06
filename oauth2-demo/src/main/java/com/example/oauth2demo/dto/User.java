@@ -3,6 +3,7 @@ package com.example.oauth2demo.dto;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.Date;
 
@@ -10,6 +11,7 @@ import java.util.Date;
 public class User {
     private String id;
     private String username;
+    @NotBlank
     private String password;
     private Date birthDay;
     public interface UserSimpleView{};

@@ -6,8 +6,10 @@ import com.example.oauth2demo.dto.UserQueryCondition;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,11 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     @PostMapping
-    public User createUser(@RequestBody User user){
+    public User createUser(@Valid @RequestBody User user, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            bindingResult.getAllErrors().stream().forEach(error -> log.error(error.getDefaultMessage()));
+        }
+
         log.info(JSON.toJSONString(user));
         log.info(""+user.getBirthDay());
         user.setId("1");
