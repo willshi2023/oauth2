@@ -18,6 +18,7 @@ public class UserController {
     @PostMapping
     public User createUser(@RequestBody User user){
         log.info(JSON.toJSONString(user));
+        log.info(""+user.getBirthDay());
         user.setId("1");
         return user;
     }
