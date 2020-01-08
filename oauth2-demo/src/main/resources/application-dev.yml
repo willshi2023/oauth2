@@ -33,7 +33,7 @@ spring:
   session:
     store-type: none
 server:
-  port: 0
+  port: 8060
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
   configuration:
