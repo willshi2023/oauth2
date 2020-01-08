@@ -1,5 +1,6 @@
 package com.example.oauth2demo.dto;
 
+import com.example.oauth2demo.validator.MyConstraint;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.util.Date;
 @Setter
 public class User {
     private String id;
+    @MyConstraint
     private String username;
     @NotBlank(message = "密码不能为空")
     private String password;
