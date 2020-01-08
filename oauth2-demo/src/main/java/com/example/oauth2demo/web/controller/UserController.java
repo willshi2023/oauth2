@@ -3,6 +3,7 @@ package com.example.oauth2demo.web.controller;
 import com.alibaba.fastjson.JSON;
 import com.example.oauth2demo.dto.User;
 import com.example.oauth2demo.dto.UserQueryCondition;
+import com.example.oauth2demo.exception.UserNotExistException;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -20,10 +21,6 @@ import java.util.List;
 public class UserController {
     @PostMapping
     public User createUser(@Valid @RequestBody User user){
-//        if(bindingResult.hasErrors()){
-//            bindingResult.getAllErrors().stream().forEach(error -> log.error(error.getDefaultMessage()));
-//        }
-
         log.info(JSON.toJSONString(user));
         log.info(""+user.getBirthDay());
         user.setId("1");
@@ -66,9 +63,6 @@ public class UserController {
     @GetMapping("/{id:\\d+}")
     @JsonView(User.UserDetailView.class)
     public User getInfo(@PathVariable String id){
-        throw new RuntimeException("user not exist");
-//        User user = new User();
-//        user.setUsername("tom");
-//        return user;
+        throw new UserNotExistException("1");
     }
 }
