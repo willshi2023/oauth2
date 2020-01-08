@@ -12,9 +12,9 @@ import java.util.Date;
 public class User {
     private String id;
     private String username;
-    @NotBlank
+    @NotBlank(message = "密码不能为空")
     private String password;
-    @Past
+    @Past(message = "生日必须是过去的时间")
     private Date birthDay;
     public interface UserSimpleView{};
     public interface UserDetailView extends UserSimpleView{};

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,7 +33,11 @@ public class UserController {
     @PutMapping("/{id:\\d+}")
     public User updateUser(@Valid @RequestBody User user, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            bindingResult.getAllErrors().stream().forEach(error -> log.error(error.getDefaultMessage()));
+            bindingResult.getAllErrors().stream().forEach(error -> {
+                FieldError fieldError = (FieldError) error;
+                String message = fieldError.getField()+" "+error.getDefaultMessage();
+                log.error(message);
+            });
         }
 
         log.info(JSON.toJSONString(user));
