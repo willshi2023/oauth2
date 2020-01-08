@@ -46,6 +46,11 @@ public class UserController {
         return user;
     }
 
+    @DeleteMapping("/{id:\\d+}")
+    public void delete(@PathVariable String id){
+        log.info(id);
+    }
+
     @GetMapping
     @JsonView(User.UserSimpleView.class)
     public List<User> query(UserQueryCondition userQueryCondition, Pageable pageable){
