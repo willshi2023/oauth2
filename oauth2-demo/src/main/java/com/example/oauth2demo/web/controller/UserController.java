@@ -19,10 +19,10 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     @PostMapping
-    public User createUser(@Valid @RequestBody User user, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            bindingResult.getAllErrors().stream().forEach(error -> log.error(error.getDefaultMessage()));
-        }
+    public User createUser(@Valid @RequestBody User user){
+//        if(bindingResult.hasErrors()){
+//            bindingResult.getAllErrors().stream().forEach(error -> log.error(error.getDefaultMessage()));
+//        }
 
         log.info(JSON.toJSONString(user));
         log.info(""+user.getBirthDay());
@@ -66,8 +66,9 @@ public class UserController {
     @GetMapping("/{id:\\d+}")
     @JsonView(User.UserDetailView.class)
     public User getInfo(@PathVariable String id){
-        User user = new User();
-        user.setUsername("tom");
-        return user;
+        throw new RuntimeException("user not exist");
+//        User user = new User();
+//        user.setUsername("tom");
+//        return user;
     }
 }
