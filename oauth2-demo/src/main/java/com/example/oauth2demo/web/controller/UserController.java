@@ -29,6 +29,18 @@ public class UserController {
         return user;
     }
 
+    @PutMapping("/{id:\\d+}")
+    public User updateUser(@Valid @RequestBody User user, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            bindingResult.getAllErrors().stream().forEach(error -> log.error(error.getDefaultMessage()));
+        }
+
+        log.info(JSON.toJSONString(user));
+        log.info(""+user.getBirthDay());
+        user.setId("1");
+        return user;
+    }
+
     @GetMapping
     @JsonView(User.UserSimpleView.class)
     public List<User> query(UserQueryCondition userQueryCondition, Pageable pageable){

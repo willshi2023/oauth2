@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.Past;
 import java.util.Date;
 
 @Setter
@@ -13,6 +14,7 @@ public class User {
     private String username;
     @NotBlank
     private String password;
+    @Past
     private Date birthDay;
     public interface UserSimpleView{};
     public interface UserDetailView extends UserSimpleView{};
