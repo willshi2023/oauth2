@@ -7,7 +7,6 @@ import javax.servlet.*;
 import java.io.IOException;
 import java.util.Date;
 
-@Component
 @Slf4j
 public class TimeFilter implements Filter {
     @Override
