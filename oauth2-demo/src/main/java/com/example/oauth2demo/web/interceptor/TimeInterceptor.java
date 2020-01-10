@@ -50,6 +50,5 @@ public class TimeInterceptor implements HandlerInterceptor {
         log.info("TimeInterceptor afterCompletion");
         Long startTime = (Long) httpServletRequest.getAttribute("startTime");
         log.info("TimeInterceptor 耗时："+(new Date().getTime()-startTime));
-        log.info("Exception is: {}",e);
     }
 }
