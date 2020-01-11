@@ -5,6 +5,8 @@ import com.example.oauth2demo.dto.User;
 import com.example.oauth2demo.dto.UserQueryCondition;
 import com.example.oauth2demo.exception.UserNotExistException;
 import com.fasterxml.jackson.annotation.JsonView;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.BindingResult;
@@ -50,6 +52,7 @@ public class UserController {
 
     @GetMapping
     @JsonView(User.UserSimpleView.class)
+    @ApiOperation(value = "用户查询服务")
     public List<User> query(UserQueryCondition userQueryCondition, Pageable pageable){
         log.info(JSON.toJSONString(userQueryCondition));
         log.info(JSON.toJSONString(pageable));
@@ -62,7 +65,7 @@ public class UserController {
 
     @GetMapping("/{id:\\d+}")
     @JsonView(User.UserDetailView.class)
-    public User getInfo(@PathVariable String id){
+    public User getInfo(@PathVariable @ApiParam(value = "用户id") String id){
         log.info("进入getInfo服务");
         User user = new User();
         user.setUsername("tom");
