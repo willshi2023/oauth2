@@ -17,11 +17,11 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                .loginPage("/imooc-signIn.html")
+                .loginPage("/authentication/require")
                 .loginProcessingUrl("/authentication/form")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/imooc-signIn.html")
+                .antMatchers("/authentication/require","/imooc-signIn.html")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
