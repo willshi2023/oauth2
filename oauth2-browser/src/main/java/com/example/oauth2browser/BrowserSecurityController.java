@@ -1,8 +1,10 @@
 package com.example.oauth2browser;
 
 import com.example.oauth2browser.support.SimpleResponse;
+import com.example.oauth2core.properties.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
@@ -22,6 +24,8 @@ import java.io.IOException;
 public class BrowserSecurityController {
     private RequestCache requestCache = new HttpSessionRequestCache();
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+    @Autowired
+    private SecurityProperties securityProperties;
     /**
      * 当需要身份认证时，跳转到这里
      * @param request
@@ -36,7 +40,7 @@ public class BrowserSecurityController {
             String targetUrl = savedRequest.getRedirectUrl();
             log.info("引发跳转的请求是: {}",targetUrl);
             if(StringUtils.endsWithIgnoreCase(targetUrl,".html")){
-                redirectStrategy.sendRedirect(request,response,"/imooc-signIn.html");
+                redirectStrategy.sendRedirect(request,response,securityProperties.getBrowser().getLoginPage());
             }
         }
         return new SimpleResponse("访问的服务需要身份认证，请引导用户到登录页");
