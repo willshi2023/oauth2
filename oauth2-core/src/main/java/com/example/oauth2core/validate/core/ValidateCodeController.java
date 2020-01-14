@@ -1,5 +1,6 @@
 package com.example.oauth2core.validate.core;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -15,10 +16,11 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
+@Slf4j
 @RestController
 public class ValidateCodeController {
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
-    private static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";
+    public static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";
 
     @GetMapping("/code/image")
     public void createCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -49,7 +51,7 @@ public class ValidateCodeController {
         }
 
         String sRand = "";
-        for (int i = 0; i < 155; i++) {
+        for (int i = 0; i < 4; i++) {
             String rand = String.valueOf(random.nextInt(10));
             sRand += rand;
             g.setColor(new Color(20 + random.nextInt(110), 20 + random.nextInt(110), 20 + random.nextInt(110)));
@@ -57,7 +59,7 @@ public class ValidateCodeController {
         }
 
         g.dispose();
-
+        log.info("生成的验证码是:{}",sRand);
         return new ImageCode(image, sRand, 60);
     }
 

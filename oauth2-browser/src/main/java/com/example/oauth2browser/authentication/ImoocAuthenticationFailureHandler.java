@@ -1,5 +1,6 @@
 package com.example.oauth2browser.authentication;
 
+import com.example.oauth2browser.support.SimpleResponse;
 import com.example.oauth2core.properties.LoginType;
 import com.example.oauth2core.properties.SecurityProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,11 +28,12 @@ public class ImoocAuthenticationFailureHandler extends SimpleUrlAuthenticationFa
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        log.info("登录失败");
+        log.error("登录失败");
         if(LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())){
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
-            response.getWriter().write(objectMapper.writeValueAsString(exception));
+            log.error(exception.getMessage());
+            response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
         }else {
             super.onAuthenticationFailure(request,response,exception);
         }
