@@ -1,6 +1,7 @@
 package com.example.oauth2core.validate.core;
 
 import com.example.oauth2core.properties.SecurityProperties;
+import com.example.oauth2core.validate.core.image.ImageCode;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;

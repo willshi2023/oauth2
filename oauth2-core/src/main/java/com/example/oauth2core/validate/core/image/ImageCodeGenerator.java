@@ -1,6 +1,7 @@
-package com.example.oauth2core.validate.core;
+package com.example.oauth2core.validate.core.image;
 
 import com.example.oauth2core.properties.SecurityProperties;
+import com.example.oauth2core.validate.core.ValidateCodeGenerator;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

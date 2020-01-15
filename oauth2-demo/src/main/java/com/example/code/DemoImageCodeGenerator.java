@@ -1,9 +1,8 @@
 package com.example.code;
 
-import com.example.oauth2core.validate.core.ImageCode;
+import com.example.oauth2core.validate.core.image.ImageCode;
 import com.example.oauth2core.validate.core.ValidateCodeGenerator;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
 
 //@Component("imageCodeGenerator")
