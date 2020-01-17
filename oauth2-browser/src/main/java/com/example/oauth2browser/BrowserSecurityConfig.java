@@ -1,6 +1,8 @@
 package com.example.oauth2browser;
 
+import com.example.oauth2core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.example.oauth2core.properties.SecurityProperties;
+import com.example.oauth2core.validate.core.SmsCodeFilter;
 import com.example.oauth2core.validate.core.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +38,10 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
     @Autowired
     private ValidateCodeFilter validateCodeFilter;
+    @Autowired
+    private SmsCodeFilter smsCodeFilter;
+    @Autowired
+    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
     @Bean
     public PersistentTokenRepository persistentTokenRepository(){
@@ -50,7 +56,11 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         validateCodeFilter.setAuthenticationFailureHandler(imoocAuthenticationFailureHandler);
         validateCodeFilter.setSecurityProperties(securityProperties);
         validateCodeFilter.afterPropertiesSet();
+        smsCodeFilter.setAuthenticationFailureHandler(imoocAuthenticationFailureHandler);
+        smsCodeFilter.setSecurityProperties(securityProperties);
+        smsCodeFilter.afterPropertiesSet();
         http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
                 .loginPage("/authentication/require")
                 .loginProcessingUrl("/authentication/form")
@@ -71,6 +81,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .csrf()
-                .disable();
+                .disable()
+        .apply(smsCodeAuthenticationSecurityConfig);
     }
 }

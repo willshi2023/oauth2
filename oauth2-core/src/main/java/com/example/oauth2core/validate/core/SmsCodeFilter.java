@@ -2,7 +2,6 @@ package com.example.oauth2core.validate.core;
 
 import com.example.oauth2core.properties.SecurityConstants;
 import com.example.oauth2core.properties.SecurityProperties;
-import com.example.oauth2core.validate.core.image.ImageCode;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -12,8 +11,6 @@ import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.web.bind.ServletRequestBindingException;
-import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -28,8 +25,8 @@ import java.util.Map;
 import java.util.Set;
 
 @Data
-@Component("validateCodeFilter")
-public class ValidateCodeFilter extends OncePerRequestFilter implements InitializingBean {
+@Component("smsCodeFilter")
+public class SmsCodeFilter extends OncePerRequestFilter implements InitializingBean {
     private AuthenticationFailureHandler authenticationFailureHandler;
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
     private Set<String> urls = new HashSet<>();
@@ -49,10 +46,10 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
 
     @Override
     public void afterPropertiesSet() throws ServletException {
-        urlMap.put(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM, ValidateCodeType.IMAGE);
-        urls.add(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM);
+        urlMap.put(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE, ValidateCodeType.SMS);
+        urls.add(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE);
         super.afterPropertiesSet();
-        String url = securityProperties.getCode().getImage().getUrl();
+        String url = securityProperties.getCode().getSms().getUrl();
         if (StringUtils.isBlank(url)) {
             return;
         }
