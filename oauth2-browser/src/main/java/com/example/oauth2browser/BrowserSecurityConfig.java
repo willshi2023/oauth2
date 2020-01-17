@@ -34,6 +34,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private ValidateCodeFilter validateCodeFilter;
 
     @Bean
     public PersistentTokenRepository persistentTokenRepository(){
@@ -45,7 +47,6 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
         validateCodeFilter.setAuthenticationFailureHandler(imoocAuthenticationFailureHandler);
         validateCodeFilter.setSecurityProperties(securityProperties);
         validateCodeFilter.afterPropertiesSet();
@@ -62,9 +63,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .userDetailsService(userDetailsService)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/authentication/require",
+                .antMatchers("/authentication/*",
                         securityProperties.getBrowser().getLoginPage(),
-                        "/code/image","/code/sms","/authentication/mobile")
+                        "/code/*")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
