@@ -4,20 +4,14 @@ import com.example.oauth2core.authentication.AbstractChannelSecurityConfig;
 import com.example.oauth2core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.example.oauth2core.properties.SecurityConstants;
 import com.example.oauth2core.properties.SecurityProperties;
-import com.example.oauth2core.validate.core.SmsCodeFilter;
-import com.example.oauth2core.validate.core.ValidateCodeFilter;
 import com.example.oauth2core.validate.core.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
@@ -32,17 +26,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private SecurityProperties securityProperties;
     @Autowired
-    private AuthenticationSuccessHandler imoocAuthenticationSuccessHandler;
-    @Autowired
-    private AuthenticationFailureHandler imoocAuthenticationFailureHandler;
-    @Autowired
     private DataSource dataSource;
     @Autowired
     private UserDetailsService userDetailsService;
-    @Autowired
-    private ValidateCodeFilter validateCodeFilter;
-    @Autowired
-    private SmsCodeFilter smsCodeFilter;
     @Autowired
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
     @Autowired
