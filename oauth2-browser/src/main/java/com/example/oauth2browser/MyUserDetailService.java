@@ -17,6 +17,13 @@ public class MyUserDetailService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * 处理用户信息获取逻辑
+     * 通过实现 UserDetailsService 接口并且实现 loadUserByUsername 方法实现从数据源获取用户数据和权限信息
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("登录用户名: {}",username);
